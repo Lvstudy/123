@@ -1,0 +1,41 @@
+//吕广浩 3/25
+#include<iostream>
+using namespace std;
+int max(int a, int b)
+{
+	if (a > b)
+	{
+		return a;
+	}
+	else
+	{
+		return b;
+	}
+}
+int main()
+{
+	int Array[100];
+	int i, length = 0;
+	int sumOfArray;
+	int sum = 0;
+	cout << "请输入任意整数" << endl;
+	for (length = 0;;)
+	{
+		cin >> Array[length];
+		length++;
+		if (getchar() == '\n')
+		{
+			break;
+		}
+	}
+	cout << "这个数组的长度为：" << length << endl;
+	sumOfArray = Array[0];
+	for (i = 1; i<length; i++)//动态数组
+	{
+		sum = max(sum, sumOfArray);
+		sumOfArray = max(sumOfArray + Array[i], Array[i]);
+	}
+	sumOfArray = max(sum, sumOfArray);
+	cout << "这个整数组的子数组之和的最大值为：" << sumOfArray << endl;
+	return 0;
+}
