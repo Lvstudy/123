@@ -1,0 +1,404 @@
+//吕广浩 2013/3/12
+#include<iostream>
+#include<time.h>
+using namespace std;
+int a, b, a1, b1, f, i;
+void ys1()//定义运算函数 方便输出
+{
+	if (f == 0)
+		cout << a << '+' << b << "=" << endl;
+	if (f == 1)
+		cout << a << '-' << b << "=" << endl;
+	if (f == 2)
+		cout << a << '*' << b << "=" << endl;
+	if (f == 3)
+		cout << a << '/' << b << "=" << endl;
+}
+void ys2()
+{
+	if (f == 0)
+		cout << a1 << "+" << b << "=" << "\t";
+	if (f == 1)
+		cout << a << "-" << b << "=" << "\t";
+	if (f == 2)
+		cout << a << "*" << b << "=" << "\t";
+	if (f == 3)
+		cout << a << "/" << b << "=" << "\t";
+}
+void zys1()
+{
+	if (f == 0)
+		cout << a1 << '/' << a << ' ' << '+' << ' ' << b1 << '/' << b << " = " << endl;
+	if (f == 1)
+		cout << a1 << '/' << a << ' ' << '-' << ' ' << b1 << '/' << b << " = " << endl;
+	if (f == 2)
+		cout << a1 << '/' << a << ' ' << '*' << ' ' << b1 << '/' << b << " = " << endl;
+	if (f == 3)
+		cout << a1 << '/' << a << ' ' << '/' << ' ' << b1 << '/' << b << " = " << endl;
+}
+void zys2()
+{
+	if (f == 0)
+		cout << a1 << '/' << a << ' ' << '+' << ' ' << b1 << '/' << b << " = " << "\t";
+	if (f == 1)
+		cout << a1 << '/' << a << ' ' << '-' << ' ' << b1 << '/' << b << " = " << "\t";
+	if (f == 2)
+		cout << a1 << '/' << a << ' ' << '*' << ' ' << b1 << '/' << b << " = " << "\t";
+	if (f == 3)
+		cout << a1 << '/' << a << ' ' << '/' << ' ' << b1 << '/' << b << " = " << "\t";
+}
+
+void main()
+{
+	srand(time(NULL));//题目避免重复
+	int e, num, min, max, out, d, fushu, kh, k, yushu;//有无真分数判断，题目数量，最小值，最大值，数值的范围，输出方式，是否有乘除运算，加减法是否有负数,有无括号
+	cout << "********二柱子四则运算定制版********" << endl;
+	cout << "请输入题目的数量num:" << endl;
+	cin >> num;
+	cout << "请选择数值范围最大值(大于0)" << endl;
+	cin >> max;
+	cout << "请选择打印方式out（0空行打印 ,1空格打印）" << endl;
+	cin >> out;
+	cout << "请选择有无乘除运算d（0没有乘除运算, 1有乘除运算）" << endl;
+	cin >> d;
+	cout << "请选择加减运算有无负数fushu（0没有负数 ,1有负数）" << endl;
+	cin >> fushu;
+	cout << "请选择有无括号（0没有括号 ,1有括号）" << endl;
+	cin >> kh;
+	cout << "除法是否有余数（0没有余数，1有余数）" << endl;
+	cin >> yushu;
+
+	for (i = 1; i <= num; i++)
+	{
+		int e1;
+		a = rand() % max;//控制两个数的范围
+		b = rand() % max;
+		a1 = rand() % max - 2;//控制两个数的范围
+		b1 = rand() % max - 2;
+		f = rand() % 4;//控制运算
+		e = a % 2;
+		e1 = b % 2;
+		k = a1 % 10;//括号的对数
+		if (kh == 1)
+		{
+			for (int j = 0; j < k; j++)
+			{
+				int a2, b2;
+				a2 = rand() % max;//控制两个数的范围
+				b2 = rand() % max;
+				e = b2 % 4;
+				if (e == 1)
+				{
+					cout << '(' << a2 << '+' << b2 << ')' << '/';
+				}
+				if (e == 2)
+				{
+					cout << '(' << a2 << '-' << b2 << ')' << '*';
+				}
+				if (e == 3)
+				{
+					cout << '(' << a2 << '*' << b2 << ')' << '-';
+				}
+				if (e == 4)
+				{
+					cout << '(' << a2 << '+' << b2 << ')' << '+';
+				}
+			}
+			if (out == 0)
+			{
+				cout << 1 << '=' << endl;
+			}
+			else
+				cout << 1 << '=' << " ";
+			kh = kh - 1;
+		}
+
+		else
+		{
+			if (out == 0)//空行打印
+			{
+				if (d == 0 && fushu == 0)//只有加减运算，无负数
+				{
+					if (f >= 2)
+					{
+						f = f - 2;
+						if (e == 1)
+						{
+							zys1();
+						}
+						else
+							ys1();
+					}
+					else
+					{
+						if (e == 1)
+						{
+							zys1();
+						}
+						else
+							ys1();
+					}
+				}
+				if (d == 0 && fushu == 1)//无乘除，有负数
+				{
+					if (f >= 2)
+					{
+						f = f - 2;
+						if (e == 1)
+						{
+							if (e1 == 1)
+							{
+								a1 = -a1;
+							}
+							zys1();
+						}
+						else
+						{
+							if (e1 == 1)
+							{
+								a = -a;
+							}
+							ys1();
+						}
+					}
+					else
+					{
+						if (e == 1)
+						{
+							if (e1 == 1)
+							{
+								a1 = -a1;
+							}
+							zys1();
+						}
+						else
+						{
+							if (e1 == 1)
+							{
+								a = -a;
+							}
+							ys1();
+						}
+
+					}
+				}
+				if (d == 1 && fushu == 1)//有乘除运算，有负数
+				{
+					if (e == 1)
+					{
+						if (e1 == 1)
+						{
+							a1 = -a1;
+						}
+						zys1();
+					}
+					else
+					{
+						if (e1 == 1)
+						{
+							a = -a;
+						}
+						if (yushu == 0 && f == 3)
+						{
+							if (a%b == 0)
+							{
+								ys1();
+							}
+							else //若不能整除 求最大公约数 给b赋值为最大公约数
+							{
+								if (a > b)
+									min = b;
+								else
+									min = a;
+								while (true)
+								{
+									if (a%min == 0 && b%min == 0)
+									{
+										b = min;
+										break;
+									}
+									min--;
+								}
+								ys1();
+
+							}
+						}
+						else
+							ys1();
+
+					}
+				}
+				if (d == 1 && fushu == 0)//有乘除运算，无负数
+				{
+					if (e == 1)
+					{
+						zys1();
+					}
+					else
+					if (yushu == 0 && f == 3)
+					{
+						if (a%b == 0)//判断余数
+						{
+							ys1();
+						}
+						else
+						{
+							if (a > b)
+								min = b;
+							else
+								min = a;
+							while (true)
+							{
+								if (a%min == 0 && b%min == 0)
+								{
+									b = min;
+									break;
+								}
+								min--;
+							}
+							ys1();
+						}
+					}
+					else
+						ys1();
+				}
+			}
+			else if (out == 1)
+			{
+				if (d == 0 && fushu == 0)
+				{
+					if (f >= 2)
+					{
+						f = f - 2;
+						if (e == 1)
+						{
+							zys2();
+						}
+						else
+							ys2();
+					}
+					else
+					{
+						if (e == 1)
+						{
+							zys2();
+						}
+						else
+							ys2();
+					}
+				}
+				if (d == 1 && fushu == 1)//有负数 有乘除
+				{
+					if (e == 1)
+					{
+						if (e1 == 1)
+						{
+							a1 = -a1;
+						}
+						zys2();
+					}
+					else
+					{
+						if (e1 == 1)
+						{
+							a = -a;
+						}
+						if (yushu == 0 && f == 3)
+						{
+							if (a%b == 0)//判断余数
+							{
+								ys2();
+							}
+							else
+							{
+								if (a > b)
+									min = b;
+								else
+									min = a;
+								while (true)
+								{
+									if (a%min == 0 && b%min == 0)
+									{
+										b = min;
+										break;
+									}
+									min--;
+								}
+								ys2();
+							}
+						}
+						else
+							ys2();
+					}
+				}
+				if (d == 0 && fushu == 1)
+				{
+
+					if (f >= 2)
+					{
+						f = f - 2;
+						if (e == 1)
+						{
+							if (e1 == 1)
+							{
+								a1 = -a1;
+							}
+							zys2();
+						}
+						else
+						{
+							if (e1 == 1)
+							{
+								a = -a;
+							}
+							ys2();
+						}
+					}
+					else
+					{
+						if (e == 1)
+						{
+							zys2();
+						}
+						else
+							ys2();
+					}
+				}
+				if (d == 1 && fushu == 0)//有除法
+				{
+					if (e == 1)
+					{
+						zys2();
+					}
+					else
+					if (yushu == 0 && f == 3)
+					{
+						if (a%b == 0)//判断余数
+						{
+							ys2();
+						}
+						else
+						{
+							if (a > b)
+								min = b;
+							else
+								min = a;
+							while (true)
+							{
+								if (a%min == 0 && b%min == 0)
+								{
+									b = min;
+									break;
+								}
+								min--;
+							}
+							ys2();
+						}
+					}
+					else
+						ys2();
+				}
+			}
+		}
+	}
+}
